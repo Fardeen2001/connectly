@@ -1,110 +1,110 @@
 "use client";
+import React, { useEffect, useState } from "react";
 import AvatarComponent from "@/components/AvatarComponent";
-import LeftNavBar from "@/components/LeftNavBar";
-import RightNavBar from "@/components/RightNavBar";
 import { Button } from "@/components/ui/button";
-import React from "react";
+import { RightNav, SideBar } from "@/components";
 
 const Notification = () => {
+  const [notifications, setNotifications] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/notifications/all`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "x-auth-token": `${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        const data = await response.json();
+        setNotifications(data);
+      } catch (error) {
+        console.error("Error fetching notifications:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchNotifications();
+  }, []);
+
+  const markAsRead = async (id) => {
+    try {
+      await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/notifications/read/${id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-auth-token": `${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setNotifications((prev) =>
+        prev.map((notification) =>
+          notification._id === id
+            ? { ...notification, isRead: true }
+            : notification
+        )
+      );
+    } catch (error) {
+      console.error("Error marking notification as read:", error);
+    }
+  };
+
+  if (loading) return <div>Loading...</div>;
+
   return (
     <div className="flex justify-between p-5 rounded-lg">
       <div>
-        <LeftNavBar />
+        <SideBar />
       </div>
       <div className="bg-secondary w-[50vw] h-screen rounded-xl p-5 overflow-y-auto">
         <h1 className="text-xl font-semibold">All Notifications</h1>
         <div className="mt-3 space-y-2">
-          <div className="flex items-start gap-2">
-            <div>
-              <AvatarComponent
-                imgSrc={"https://github.com/shadcn.png"}
-                name={"fardeen"}
-              />
-            </div>
-            <div>
-              <h2 className="text-lg font-medium">New friend Request</h2>
-              <p>Add Fardeen as your friend</p>
-              <p className="text-primary/50">2 Days ago</p>
-              <div className="flex items-center gap-2">
-                <Button>Accept Request</Button>
-                <Button varient="outline">Decline</Button>
+          {notifications?.map((notification) => (
+            <div
+              key={notification._id}
+              className="flex items-start gap-2 p-4 border-b"
+            >
+              <div>
+                <AvatarComponent
+                  imgSrc={
+                    notification.user.avatarUrl ||
+                    "https://github.com/shadcn.png"
+                  }
+                  name={notification.user.name}
+                />
+              </div>
+              <div>
+                <h2 className="text-lg font-medium">
+                  {notification.type === "like" ? "New Like" : "New Comment"}
+                </h2>
+                <p>{notification.message}</p>
+                <a href={notification.link} className="text-primary underline">
+                  View
+                </a>
+                <p className="text-primary/50">
+                  {new Date(notification.createdAt).toLocaleString()}
+                </p>
+                <div className="flex items-center gap-2">
+                  {!notification.isRead && (
+                    <Button onClick={() => markAsRead(notification._id)}>
+                      Mark as Read
+                    </Button>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-          <div className="flex items-start gap-2">
-            <div>
-              <AvatarComponent
-                imgSrc={"https://github.com/shadcn.png"}
-                name={"fardeen"}
-              />
-            </div>
-            <div>
-              <h2 className="text-lg font-medium">Birthday</h2>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Architecto, maiores ipsam? Eos itaque odit, aspernatur minus et
-                magni provident eius blanditiis non porro necessitatibus
-                inventore ad repudiandae repellendus perspiciatis quisquam?
-              </p>
-              <p className="text-primary/50">2 Days ago</p>
-            </div>
-          </div>
-          <div className="flex items-start gap-2">
-            <div>
-              <AvatarComponent
-                imgSrc={"https://github.com/shadcn.png"}
-                name={"fardeen"}
-              />
-            </div>
-            <div>
-              <h2 className="text-lg font-medium">New friend Request</h2>
-              <p>Add Fardeen as your friend</p>
-              <p className="text-primary/50">2 Days ago</p>
-              <div className="flex items-center gap-2">
-                <Button>Accept Request</Button>
-                <Button varient="outline">Decline</Button>
-              </div>
-            </div>
-          </div>
-          <div className="flex items-start gap-2">
-            <div>
-              <AvatarComponent
-                imgSrc={"https://github.com/shadcn.png"}
-                name={"fardeen"}
-              />
-            </div>
-            <div>
-              <h2 className="text-lg font-medium">New friend Request</h2>
-              <p>Add Fardeen as your friend</p>
-              <p className="text-primary/50">2 Days ago</p>
-              <div className="flex items-center gap-2">
-                <Button>Accept Request</Button>
-                <Button varient="outline">Decline</Button>
-              </div>
-            </div>
-          </div>{" "}
-          <div className="flex items-start gap-2">
-            <div>
-              <AvatarComponent
-                imgSrc={"https://github.com/shadcn.png"}
-                name={"fardeen"}
-              />
-            </div>
-            <div>
-              <h2 className="text-lg font-medium">Birthday</h2>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Architecto, maiores ipsam? Eos itaque odit, aspernatur minus et
-                magni provident eius blanditiis non porro necessitatibus
-                inventore ad repudiandae repellendus perspiciatis quisquam?
-              </p>
-              <p className="text-primary/50">2 Days ago</p>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
       <div>
-        <RightNavBar />
+        <RightNav />
       </div>
     </div>
   );

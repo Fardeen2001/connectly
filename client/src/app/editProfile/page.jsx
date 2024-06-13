@@ -1,19 +1,18 @@
 "use client";
-
+import { RightNav, SideBar } from "@/components";
 import BlockList from "@/components/BlockList";
 import EditProfileModal from "@/components/EditProfileModal";
-import LeftNavBar from "@/components/LeftNavBar";
 import NotificationEdit from "@/components/NotificationEdit";
-import RightNavBar from "@/components/RightNavBar";
 import Security from "@/components/Security";
 import React, { useState } from "react";
 
-const EditProfile = () => {
-  const [activeTab, setActiveTab] = useState("edit");
+const page = () => {
+  const [activeTab, setActiveTab] = useState("security");
+
   return (
     <div className="flex justify-between p-5 rounded-lg">
       <div>
-        <LeftNavBar />
+        <SideBar />
       </div>
       <div className="flex flex-col h-screen w-[50vw] mx-auto bg-secondary rounded-xl ">
         <div className="w-full h-[10vh] p-5">
@@ -22,41 +21,37 @@ const EditProfile = () => {
         <div className="w-full h-[10vh] p-5 ">
           <ul className="flex w-full border-b border-b-black gap-5">
             <li
-              className={`cursor-pointer ${
-                activeTab === "edit"
+              className={`cursor-pointer ${activeTab === "edit"
                   ? "text-red-500 font-semibold border-b border-b-red-500"
                   : ""
-              }`}
+                }`}
               onClick={() => setActiveTab("edit")}
             >
               Edit Profile
             </li>
             <li
-              className={`cursor-pointer  ${
-                activeTab === "security"
+              className={`cursor-pointer  ${activeTab === "security"
                   ? "text-red-500 font-semibold border-b border-b-red-500"
                   : ""
-              }`}
+                }`}
               onClick={() => setActiveTab("security")}
             >
               Security
             </li>
             <li
-              className={`cursor-pointer  ${
-                activeTab === "notification"
+              className={`cursor-pointer  ${activeTab === "notification"
                   ? "text-red-500 font-semibold border-b border-b-red-500"
                   : ""
-              }`}
+                }`}
               onClick={() => setActiveTab("notification")}
             >
               Notification
             </li>
             <li
-              className={`cursor-pointer  ${
-                activeTab === "blocklist"
+              className={`cursor-pointer  ${activeTab === "blocklist"
                   ? "text-red-500 font-semibold border-b border-b-red-500"
                   : ""
-              }`}
+                }`}
               onClick={() => setActiveTab("blocklist")}
             >
               Blocklist
@@ -71,10 +66,10 @@ const EditProfile = () => {
         </div>
       </div>
       <div>
-        <RightNavBar />
+        <RightNav />
       </div>
     </div>
   );
 };
 
-export default EditProfile;
+export default page;

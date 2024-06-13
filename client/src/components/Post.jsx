@@ -84,7 +84,7 @@ const Post = () => {
     <>
       <div className="flex flex-col gap-5 py-5">
         {/* Image */}
-        <div className="bg-white w-[700px] h-auto rounded-xl p-5">
+        <div className="bg-white shadow-lg w-[700px] h-auto rounded-xl p-5">
           <div className="head flex gap-3">
             <div>
               <Image className="w-14 h-14" src={post} alt="" />
