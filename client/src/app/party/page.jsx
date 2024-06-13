@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { Pic, cover_profile, post2, post3, post4, post6 } from '../assets';
 import CreateGroup from '@/components/CreateGroup';
 import Link from 'next/link';
+import Loading from '@/components/Loading';
 
 const page = () => {
 
@@ -20,6 +21,18 @@ const page = () => {
     // const handleCreateGroupClick = () => {
     //     setShowPopup(true);
     // };
+
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);
+        }, 3000); // 3 seconds
+    }, []);
+
+    if (loading) {
+        return <Loading />;
+    }
 
     const groupDetails = [
         {

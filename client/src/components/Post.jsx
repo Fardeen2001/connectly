@@ -690,88 +690,12 @@ const Post = () => {
                   placeholder="Write a Comment..."
                   className="bg-[#FFEDED] rounded-xl w-full px-4 py-3"
                 />
-              </form>{" "}
+              </form>
             </div>
           </div>
         </div>
 
-        {/* Vote Cards */}
-        {/* <div className='bg-white w-[700px] h-auto rounded-xl p-5'>
-                    <div className="head flex gap-3">
-                        <div>
-                            <Image className='w-14 h-14' src={post6} alt='' />
-                        </div>
-
-                        <div className='flex items-center justify-between w-full'>
-                            <div className='flex flex-col '>
-                                <h1 className='font-medium'>Alexandro Vargas</h1>
-                                <p className='text-xs text-[#656565]'>2h Ago</p>
-                            </div>
-
-                            <BsThreeDotsVertical size={22} />
-                        </div>
-                    </div>
-
-                    <div className='my-10 flex items-center justify-center gap-3 whitespace-nowrap overflow-x-auto overflow-y-hidden h-[400px] relative'>
-                        <div className=' w-[20rem] h-[10rem] relative bottom-24'>
-                            <div className='w-full h-full overflow-hidden'>
-                                <Image src={post_img} className='object-contain w-full h-full scale-[2]' />
-                            </div>
-
-                            <div className='p-5 w-full h-full bg-[#FFEDED] flex flex-col gap-3'>
-                                <div className='flex items-center justify-between'>
-                                    <div className='flex flex-col'>
-                                        <h1>Floyd Miles</h1>
-                                        <p className='text-xs'>Department</p>
-                                    </div>
-
-                                    <button className='bg-[#FF578E] rounded-md text-white px-4 py-2'>Vote Now</button>
-                                </div>
-
-                                <p className='text-sm'>Lorem ipsum dolor sit amet consectetur. <br /> Molestie vulpUTate.</p>
-                            </div>
-                        </div>
-
-                        <div className=' w-[20rem] h-[10rem] relative bottom-24'>
-                            <div className='w-full h-full overflow-hidden'>
-                                <Image src={post_img} className='object-contain w-full h-full scale-[2]' />
-                            </div>
-
-                            <div className='p-5 w-full h-full bg-[#FFEDED] flex flex-col gap-3'>
-                                <div className='flex items-center justify-between'>
-                                    <div className='flex flex-col'>
-                                        <h1>Floyd Miles</h1>
-                                        <p className='text-xs'>Department</p>
-                                    </div>
-
-                                    <button className='bg-[#FF578E] rounded-md text-white px-4 py-2'>Vote Now</button>
-                                </div>
-
-                                <p className='text-sm'>Lorem ipsum dolor sit amet consectetur. <br /> Molestie vulpUTate.</p>
-                            </div>
-                        </div>
-
-                        <div className=' w-[20rem] h-[10rem] relative bottom-24'>
-                            <div className='w-full h-full overflow-hidden'>
-                                <Image src={post_img} className='object-contain w-full h-full scale-[2]' />
-                            </div>
-
-                            <div className='p-5 w-full h-full bg-[#FFEDED] flex flex-col gap-3'>
-                                <div className='flex items-center justify-between'>
-                                    <div className='flex flex-col'>
-                                        <h1>Floyd Miles</h1>
-                                        <p className='text-xs'>Department</p>
-                                    </div>
-
-                                    <button className='bg-[#FF578E] rounded-md text-white px-4 py-2'>Vote Now</button>
-                                </div>
-
-                                <p className='text-sm'>Lorem ipsum dolor sit amet consectetur. <br /> Molestie vulpUTate.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div> */}
+        
       </div>
     </>
   );

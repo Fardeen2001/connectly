@@ -1,4 +1,5 @@
-import React from 'react'
+'use client'
+import React, { useEffect, useState } from 'react'
 import "../globals.css";
 import {
     Post,
@@ -8,7 +9,21 @@ import {
     RightNav,
     Footer,
 } from "../../components";
+import Loading from '@/components/Loading';
 const page = () => {
+
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);
+        }, 3000); // 3 seconds
+    }, []);
+
+    if (loading) {
+        return <Loading />;
+    }
+
     return (
         <>
             <div className="grid-container relative">

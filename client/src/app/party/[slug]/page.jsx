@@ -15,6 +15,7 @@ import { GoPlus } from "react-icons/go";
 import { FaUserAlt, FaUserFriends } from "react-icons/fa";
 import { IoCallSharp } from "react-icons/io5";
 import { IoMdMail } from "react-icons/io";
+import Loading from "@/components/Loading";
 
 
 
@@ -31,6 +32,18 @@ const Profile = () => {
     };
 
     const sidePhotos = [Photos, Photos2, Photos, Photos2, Photos, Photos2, Photos, Photos2, Photos]
+
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);
+        }, 3000); // 3 seconds
+    }, []);
+
+    if (loading) {
+        return <Loading />;
+    }
 
     return (
         <>

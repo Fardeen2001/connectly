@@ -12,6 +12,7 @@ import TimeLine from "@/components/TimeLine";
 import AboutProfile from "@/components/AboutProfile";
 import MediaPost from "@/components/MediaPost";
 import Cookies from "js-cookie";
+import Loading from "@/components/Loading";
 
 const Profile = () => {
   const [request, setRequest] = useState(false);
@@ -43,9 +44,17 @@ const Profile = () => {
     setActiveTab(tab);
   };
 
-  if (!profileData) {
-    return <div>Loading...</div>;
-  }
+  const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);
+        }, 3000); // 3 seconds
+    }, []);
+
+    if (loading) {
+        return <Loading />;
+    }
 
   return (
     <>

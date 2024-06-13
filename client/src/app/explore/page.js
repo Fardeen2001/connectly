@@ -12,6 +12,7 @@ import { LuPartyPopper } from "react-icons/lu";
 import { LiaUserFriendsSolid } from "react-icons/lia";
 import ImageExplore from "@/components/ImageExplore";
 import Card from "@/components/Card";
+import Loading from "@/components/Loading";
 
 const page = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,6 +42,18 @@ const page = () => {
   };
 
   console.log(profiles);
+
+  const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);
+        }, 3000); // 3 seconds
+    }, []);
+
+    if (loading) {
+        return <Loading />;
+    }
 
   return (
     <>

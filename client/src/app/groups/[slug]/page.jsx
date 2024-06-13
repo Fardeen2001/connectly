@@ -12,22 +12,43 @@ import Link from "next/link";
 import { FaUsers } from "react-icons/fa6";
 import { FiSend } from "react-icons/fi";
 import { GoPlus } from "react-icons/go";
+import InviteFriends from "@/components/InviteFriends";
+import Loading from "@/components/Loading";
 
 
 
-const Profile = () => {
+const page = () => {
     const [activeTab, setActiveTab] = useState('');
     const [isOpen, setIsOpen] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [showPopup, setShowPopup] = useState(false);
 
-    useEffect(() => {
-        setActiveTab('party')
-    }, [])
 
     const handleToggle = () => {
         setIsOpen(!isOpen);
     };
 
+
+    const handleInviteFriendClick = () => {
+        setShowPopup(true);
+    };
+
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);
+        }, 3000); // 3 seconds
+    }, []);
+
+    if (loading) {
+        return <Loading />;
+    }
+
     const sidePhotos = [Photos, Photos2, Photos, Photos2, Photos, Photos2, Photos, Photos2, Photos]
+
+    useEffect(() => {
+        setActiveTab('group-feed')
+    }, [])
 
     return (
         <>
@@ -41,11 +62,10 @@ const Profile = () => {
                             <Image src={Pic} className="w-32 h-32 relative left-5 bottom-10 rounded-full" />
 
                             <div className="flex flex-col justify-between px-10 w-full">
-                                <div className="flex items-center justify-between
-                w-full">
+                                <div className="flex items-center justify-between w-full relative">
                                     <h1 className="font-semibold text-lg">Lorem ipsum dolor sit amet.</h1>
-                                    <button className='px-3 py-2 bg-[#F45044] text-white flex items-center gap-1 rounded'><GoPlus size={22} /> Invite Friends</button>
-
+                                    <button onClick={handleInviteFriendClick} className='px-3 py-2 bg-[#F45044] text-white flex items-center gap-1 rounded'><GoPlus size={22} /> Invite Friends</button>
+                                    {showPopup && (<InviteFriends setShowPopup={setShowPopup} />)}
                                 </div>
 
                                 <div className='flex items-center justify-between py-4'>
@@ -248,4 +268,4 @@ const Profile = () => {
     );
 };
 
-export default Profile;
+export default page;

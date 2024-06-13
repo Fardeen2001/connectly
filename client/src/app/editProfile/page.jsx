@@ -2,12 +2,25 @@
 import { RightNav, SideBar } from "@/components";
 import BlockList from "@/components/BlockList";
 import EditProfileModal from "@/components/EditProfileModal";
+import Loading from "@/components/Loading";
 import NotificationEdit from "@/components/NotificationEdit";
 import Security from "@/components/Security";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const page = () => {
   const [activeTab, setActiveTab] = useState("security");
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000); // 3 seconds
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="flex justify-between p-5 rounded-lg">
@@ -22,8 +35,8 @@ const page = () => {
           <ul className="flex w-full border-b border-b-black gap-5">
             <li
               className={`cursor-pointer ${activeTab === "edit"
-                  ? "text-red-500 font-semibold border-b border-b-red-500"
-                  : ""
+                ? "text-red-500 font-semibold border-b border-b-red-500"
+                : ""
                 }`}
               onClick={() => setActiveTab("edit")}
             >
@@ -31,8 +44,8 @@ const page = () => {
             </li>
             <li
               className={`cursor-pointer  ${activeTab === "security"
-                  ? "text-red-500 font-semibold border-b border-b-red-500"
-                  : ""
+                ? "text-red-500 font-semibold border-b border-b-red-500"
+                : ""
                 }`}
               onClick={() => setActiveTab("security")}
             >
@@ -40,8 +53,8 @@ const page = () => {
             </li>
             <li
               className={`cursor-pointer  ${activeTab === "notification"
-                  ? "text-red-500 font-semibold border-b border-b-red-500"
-                  : ""
+                ? "text-red-500 font-semibold border-b border-b-red-500"
+                : ""
                 }`}
               onClick={() => setActiveTab("notification")}
             >
@@ -49,8 +62,8 @@ const page = () => {
             </li>
             <li
               className={`cursor-pointer  ${activeTab === "blocklist"
-                  ? "text-red-500 font-semibold border-b border-b-red-500"
-                  : ""
+                ? "text-red-500 font-semibold border-b border-b-red-500"
+                : ""
                 }`}
               onClick={() => setActiveTab("blocklist")}
             >
