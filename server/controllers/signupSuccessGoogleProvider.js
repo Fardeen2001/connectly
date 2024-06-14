@@ -51,7 +51,7 @@
 //signup success || fardeen
 
 const User = require("../models/userModel");
-const { createToken } = require("../utils/token-manager.js");
+//const { createToken } = require("../utils/token-manager.js");
 
 exports.signupSuccessGoogleProvider = async (req, res) => {
   try {
@@ -62,15 +62,15 @@ exports.signupSuccessGoogleProvider = async (req, res) => {
       const userData = await User.findById(userId);
       console.log("user", userData);
       if (userData) {
-        const token = await createToken({
-          email: userData.email,
-          name: userData.user.name,
-          id: userData._id,
-          profileImage: userData.user.profileImage,
-        });
-        console.log(token);
+       // const token = await createToken({
+       //   email: userData.email,
+        //  name: userData.user.name,
+        //  id: userData._id,
+       //   profileImage: userData.user.profileImage,
+    //    });
+      //  console.log(token);
         return res.status(200).json({
-          token: token,
+          token: "token",
           message: "User Created Successfully",
           id: userData._id.toString(),
           name: userData.user.name,
