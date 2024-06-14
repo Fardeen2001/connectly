@@ -6,13 +6,15 @@ import { Button } from "./ui/button";
 
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
+import { googleSubmitHandler } from "@/utils/GoogleAuthHandler";
+import { useToast } from "./ui/use-toast";
 
 const LoginForm = ({ setIsAnimated, isAnimated }) => {
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-
+  const { toast } = useToast();
   const submitHandler = async (e) => {
     setLoading(true);
     e.preventDefault();
@@ -58,7 +60,10 @@ const LoginForm = ({ setIsAnimated, isAnimated }) => {
           <div className="mx-auto overflow-hidden">
             <div className="p-8">
               <h1 className="text-5xl font-bold text-primary">Welcome back!</h1>
-              <Button className="my-6 p-4 uppercase rounded-lg bg-primary hover:bg-primary text-white font-semibold text-center flex items-center justify-center gap-2 w-full focus:outline-none focus:ring focus:ring-offset-2 focus:ring-primary-500 focus:ring-opacity-80 cursor-pointer">
+              <Button
+                className="my-6 p-4 uppercase rounded-lg   font-semibold text-center flex items-center justify-center gap-2 w-full focus:outline-none focus:ring  focus:ring-opacity-80 cursor-pointer"
+                onClick={() => googleSubmitHandler(toast)}
+              >
                 <FaGoogle className="text-2xl" /> Sign In With Google
               </Button>
               <div className="w-full text-primary flex flex-row before:flex-1 before:border before:border-primary before:m-auto after:flex-1 after:border after:border-primary after:m-auto before:mr-3 after:ml-3">

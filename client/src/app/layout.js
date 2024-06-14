@@ -2,6 +2,8 @@ import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import ReduxProvider from "@/redux/provider";
+import { Toaster } from "@/components/ui/toaster";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -22,15 +24,19 @@ export default function RootLayout({ children }) {
           fontSans.variable
         )}
       >
-        {" "}
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}{" "}
-        </ThemeProvider>
+        <main>
+          <ReduxProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}{" "}
+            </ThemeProvider>
+          </ReduxProvider>
+          <Toaster />
+        </main>
       </body>
     </html>
   );

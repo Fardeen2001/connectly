@@ -71,6 +71,7 @@ const CreatePost = () => {
               type="text"
               placeholder="What's on your mind ?"
               className="bg-[#FFEDED] rounded-full w-full px-4 py-5"
+              required
               value={content}
               onChange={(e) => setContent(e.target.value)}
             />

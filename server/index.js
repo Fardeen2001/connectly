@@ -1,8 +1,8 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
-const passport = require("passport");
-const session = require("express-session");
+// const passport = require("passport");
+// const session = require("express-session");
 const authRoutes = require("./routes/authRoutes");
 const profileRoutes = require("./routes/profileRoutes");
 const postRoutes = require("./routes/postRoutes");
@@ -14,11 +14,10 @@ const preferencesRoutes = require("./routes/preferencesRoutes");
 const cors = require("cors");
 const http = require("http");
 const { Server } = require("socket.io");
-const profileModel = require('./models/profileModel')
-const jwt = require('jsonwebtoken');
+const profileModel = require("./models/profileModel");
+const jwt = require("jsonwebtoken");
 
-
-require("./config/passportConfig");
+// require("./config/passportConfig");
 
 const app = express();
 const server = http.createServer(app);
@@ -41,18 +40,18 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Failed to connect to MongoDB:", err));
 
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-  })
-);
+// app.use(
+//   session({
+//     secret: process.env.SESSION_SECRET,
+//     resave: false,
+//     saveUninitialized: false,
+//   })
+// );
 
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
-app.set("view engine", "ejs");
+// app.set("view engine", "ejs");
 
 // Use auth routes
 app.use("/api/auth", authRoutes);
@@ -104,7 +103,9 @@ app.get("/api/profileDetails", async (req, res) => {
     const userId = req.header("user-id");
 
     if (!token) {
-      return res.status(401).json({ message: "No token, authorization denied" });
+      return res
+        .status(401)
+        .json({ message: "No token, authorization denied" });
     }
 
     let decoded;
@@ -115,7 +116,9 @@ app.get("/api/profileDetails", async (req, res) => {
     }
 
     if (!userId) {
-      return res.status(400).json({ message: "No user ID provided in headers" });
+      return res
+        .status(400)
+        .json({ message: "No user ID provided in headers" });
     }
 
     const profileDetails = await profileModel.findOne({ user: userId });

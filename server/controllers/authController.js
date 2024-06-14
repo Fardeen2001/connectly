@@ -43,9 +43,10 @@ exports.register = async (req, res, next) => {
     const message = `Dear ${name},\n\nWelcome to Connectly! Please verify your email address using the following OTP:\n\n${otp}\n\nThis OTP is valid for 10 minutes.\n\nThank you,\nTeam Connectly`;
 
     await sendEmail(email, subject, message);
-    res
-      .status(201)
-      .json({ message: "OTP sent to your email. Please verify your account." });
+    res.status(201).json({
+      message: "OTP sent to your email. Please verify your account.",
+      data: { id: user._id, name, email },
+    });
   } catch (err) {
     console.log("Error");
     console.error(err);
@@ -71,11 +72,10 @@ exports.login = async (req, res, next) => {
     }
 
     if (!user.isVerified) {
-      return res
-        .status(400)
-        .json({ message: "Please verify your email first",
-          requiresVerification : true
-         });
+      return res.status(400).json({
+        message: "Please verify your email first",
+        requiresVerification: true,
+      });
     }
 
     const payload = {
@@ -92,7 +92,7 @@ exports.login = async (req, res, next) => {
       (err, token) => {
         if (err) throw err;
         res.header("x-auth-token", token);
-        res.json({ token });
+        res.json({ token, id: user.id, name: user.name, email: user.email });
       }
     );
   } catch (err) {
@@ -104,7 +104,7 @@ exports.login = async (req, res, next) => {
 // Verify OTP
 exports.verifyOtp = async (req, res, next) => {
   const { email, otp } = req.body;
-
+  console.log(email, otp);
   try {
     let user = await User.findOne({ email });
 
@@ -134,7 +134,7 @@ exports.authenticate = (req, res, next) => {
   const token = req.header("x-auth-token");
 
   if (!token) {
-    console.log("NOr token")
+    console.log("NOr token");
     return res.status(401).json({ message: "No token, authorization denied" });
   }
 
@@ -143,7 +143,7 @@ exports.authenticate = (req, res, next) => {
     req.user = decoded.user;
     next();
   } catch (err) {
-    console.log("Token not valid")
+    console.log("Token not valid");
     res.status(401).json({ message: "Token is not valid" });
   }
 };

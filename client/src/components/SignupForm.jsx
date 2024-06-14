@@ -3,13 +3,18 @@ import React, { useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
+import { googleSubmitHandler } from "@/utils/GoogleAuthHandler";
+import { useToast } from "./ui/use-toast";
+import { useDispatch } from "react-redux";
+import { authReducer } from "@/redux/reducers/auth";
 const SignupForm = ({ setIsAnimated, isAnimated }) => {
   const [nameValue, setNameValue] = useState("");
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [confirmPasswordValue, setConfirmPasswordValue] = useState("");
   const router = useRouter(); // Initialize the useRouter hook
-
+  const { toast } = useToast();
+  const dispatch = useDispatch();
   const submitHandler = async (e) => {
     e.preventDefault();
     const apiURL = process.env.NEXT_PUBLIC_API_URL;
@@ -32,7 +37,16 @@ const SignupForm = ({ setIsAnimated, isAnimated }) => {
           }
         );
         alert(response.data.message);
-
+        console.log(response.data.data);
+        dispatch(
+          authReducer({
+            id: response?.data?.data?.id,
+            name: response?.data?.data?.name,
+            email: response?.data?.data?.email,
+            profilePicture: "",
+            // token: response?.data?.data?.token,
+          })
+        );
         // Redirect to OTP page
         router.push("/otpVerification"); // Change this to your OTP page route
       } catch (error) {
@@ -53,7 +67,10 @@ const SignupForm = ({ setIsAnimated, isAnimated }) => {
               <h1 className="text-5xl font-bold text-primary-600">
                 Create account
               </h1>
-              <Button className="my-6   uppercase rounded-lg  text-secondary font-semibold text-center flex items-center justify-center gap-2 w-full ">
+              <Button
+                className="my-6   uppercase rounded-lg  font-semibold text-center flex items-center justify-center gap-2 w-full "
+                onClick={() => googleSubmitHandler(toast)}
+              >
                 <FaGoogle className="text-2xl" /> Sign In With Google
               </Button>
               <div className="w-full text-primary-600 flex flex-row before:flex-1 before:border before:border-primary-500 before:m-auto after:flex-1 after:border after:border-primary-500 after:m-auto before:mr-3 after:ml-3">
